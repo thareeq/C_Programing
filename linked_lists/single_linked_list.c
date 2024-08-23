@@ -10,7 +10,6 @@ enum options {
     DEL_BEG,
     DEL_ANY,
     SEARCH,
-    GET,
     QUIT
 };
 
@@ -164,12 +163,72 @@ void delete_at_end(){
     }
     }
 
+void delete_at_bgn(){
+    struct node *ptr;
+    if(head==NULL){
+        printf("empty List");
+    }
+    else{
+        ptr=head;
+        head=ptr->next;
+        free(ptr);
+        printf("Deleted at beginning");
+    }
+}
+
+void delete_at_any(){
+    if(head==NULL){
+        printf("Empty List");
+    }
+    else{
+        struct node *ptr,*ptr1;
+        ptr=head;
+        int index;
+        printf("Enter the index: ");
+        scanf("%d",&index);
+        if(index==1){delete_at_bgn();return;}
+        for(int i=1;i<index;i++){
+            ptr1=ptr;
+            ptr=ptr->next;
+            if(ptr==NULL){
+                printf("Cannot delete\n");
+                return;
+            }
+        }
+        printf("DATA %d\n",ptr1->data);
+        printf("DATA %d\n",ptr->data);
+        ptr1->next=ptr->next;
+        free(ptr);
+        printf("Delected at %d element\n",index);
+    }
+}
+
+void search(){
+    int value;
+    printf("Enter the value: ");
+    scanf("%d",&value);
+    struct node *ptr;
+    ptr = head;
+    int index=1;
+    if(head==NULL){
+        printf("No element");
+    }
+    while(ptr!=NULL){
+        if(ptr->data==value){
+            printf("found the element: at index %d\n",index);
+            return;
+        }
+        index++;
+        ptr=ptr->next;
+    }
+}
+
 int main(){
     int choice;
     while(choice!=QUIT)
     {
     printf("Enter the choice \n1. Show All \n2. Insert at end \n3. Insert at beginning \n4. Insert anywhere \n5. Delete at end\n\
-6. Delete at end\n7. Delete any node\n");
+6. Delete at bgn\n7. Delete any node\n8. Search\n9. Quit\n");
     printf("\n");
     scanf("%d",&choice);
     switch(choice){
@@ -189,16 +248,13 @@ int main(){
             delete_at_end();
             break;
         case DEL_BEG:
-            //delete_at_bgn();
+            delete_at_bgn();
             break;
         case DEL_ANY:
-            //delete_at_any();
+            delete_at_any();
             break;
         case SEARCH:
-            //search();
-            break;
-        case GET:
-            //get_item();
+            search();
             break;
         case QUIT:
             break;
