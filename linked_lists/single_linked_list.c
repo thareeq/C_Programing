@@ -10,6 +10,7 @@ enum options {
     DEL_BEG,
     DEL_ANY,
     SEARCH,
+    GET,
     QUIT
 };
 
@@ -133,11 +134,42 @@ void insert_at_any(){
     }
 }
 
+void delete_at_end(){
+    struct node *ptr, *ptr1;
+    if(head==NULL){
+        printf("List is empty\n");
+    }
+    else if(head->next==NULL)
+    {
+        head=NULL;
+        free(head);
+        printf("Only element in the list deleted\n");
+    }
+    else{
+        ptr=head;
+        while(ptr->next!=NULL)
+        {
+            ptr1=ptr;
+            ptr=ptr->next;
+        }
+        free(ptr);
+        ptr1->next=NULL;
+        /*while(ptr->next->next!=NULL)
+        {
+            ptr=ptr->next;
+        }
+        free(ptr->next);
+        ptr->next=NULL;*/
+        printf("Deleted Last node");
+    }
+    }
+
 int main(){
     int choice;
     while(choice!=QUIT)
     {
-    printf("Enter the choice \n1. Show All \n2. Insert at end \n3. Insert at beginning \n4. Insert anywhere \n5. Quit\n");
+    printf("Enter the choice \n1. Show All \n2. Insert at end \n3. Insert at beginning \n4. Insert anywhere \n5. Delete at end\n\
+6. Delete at end\n7. Delete any node\n");
     printf("\n");
     scanf("%d",&choice);
     switch(choice){
@@ -152,6 +184,23 @@ int main(){
             break;
         case INS_ANY:
             insert_at_any();
+            break;
+        case DEL_END:
+            delete_at_end();
+            break;
+        case DEL_BEG:
+            //delete_at_bgn();
+            break;
+        case DEL_ANY:
+            //delete_at_any();
+            break;
+        case SEARCH:
+            //search();
+            break;
+        case GET:
+            //get_item();
+            break;
+        case QUIT:
             break;
         default:
             break;
