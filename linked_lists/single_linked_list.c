@@ -91,6 +91,48 @@ void insert_at_begin(){
     }
 }
 
+void insert_at_any(){
+    struct node *ptr=(struct node*)malloc(sizeof(struct node));
+    if(ptr==NULL){
+        printf("OVERFLOW\n");
+    }
+    else{
+        int value, index;
+        printf("Enter the index: ");
+        scanf("%d",&index);
+        if(head==NULL || index==1){
+            insert_at_begin();
+            return;
+        }
+        else{
+            int n=1;
+            struct node *temp;
+            temp = head;
+            while(temp!=NULL){
+                if(n==(index-1)){
+                    printf("Enter the value: ");
+                    scanf("%d",&value);
+                    ptr->data=value;
+                    ptr->next=temp->next;
+                    temp->next=ptr;
+                    break;
+                }
+                temp=temp->next;
+                n++;
+            }
+            if(temp==NULL){
+                printf("index out of range\n");
+            }
+            else if(temp->next==NULL){
+                printf("Adding element at end as new\n");
+                insert_at_any();
+                
+            }
+            
+        }
+    }
+}
+
 int main(){
     int choice;
     while(choice!=QUIT)
@@ -107,7 +149,10 @@ int main(){
             break;    
         case INS_BEG:
             insert_at_begin();
-            break; 
+            break;
+        case INS_ANY:
+            insert_at_any();
+            break;
         default:
             break;
             }
