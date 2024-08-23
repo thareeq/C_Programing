@@ -65,8 +65,30 @@ void insert_at_end(){
         printf("Element inserted");
         
     }
-    
-    
+}
+
+void insert_at_begin(){
+    struct node *ptr = (struct node *)malloc(sizeof(struct node));
+    if(ptr==NULL){
+        printf("OVERFLOW\n");
+    }
+    else{
+        int value;
+        printf("Enter the value: ");
+        scanf("%d",&value);
+        ptr->data=value;
+        if(head==NULL){
+            head=ptr;
+            ptr->next=NULL;
+        }
+        else{
+            struct node *temp;
+            temp=head;
+            head=ptr;
+            ptr->next=temp;
+        }
+        
+    }
 }
 
 int main(){
@@ -84,6 +106,7 @@ int main(){
             insert_at_end();
             break;    
         case INS_BEG:
+            insert_at_begin();
             break; 
         default:
             break;
