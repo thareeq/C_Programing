@@ -21,3 +21,10 @@ To compile the C++ code into an addon, run the following command:
 
 ```bash
 npm run build
+
+## Location of Compiled Addon
+After building, the addon.node file will be located at:
+```bash
+/build/Release/addon.node
+
+
