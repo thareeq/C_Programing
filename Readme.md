@@ -15,4 +15,9 @@ sudo apt-get update
 sudo apt-get install wiringpi
 ```
 
+## Build Command
 
+To compile the C++ code into an addon, run the following command:
+
+```bash
+npm run build
