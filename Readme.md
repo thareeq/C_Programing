@@ -11,7 +11,7 @@ To build this code, ensure you are using a system with the WiringPi library inst
 
 To compile the C++ code into an addon, run the following command:
 
-```bash
+```
 npm run build
 ```
 
