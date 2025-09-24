@@ -80,6 +80,11 @@ void delete_head(){
 
 void delete_tail(){
     if(head==NULL)return;
+    if(head->next==NULL){
+        free(head);
+        head=NULL;
+        return;
+    }
     Node *temp = head;
     while(temp->next->next!=NULL){
         temp=temp->next;
@@ -101,15 +106,31 @@ int delete_at_position(int position){
     for(int i=1; temp!=NULL && i<position-1;i++){
         temp=temp->next;
     }
-    if(temp==NULL){
+    if(temp->next==NULL){
         fprintf(stderr,"DEL: Out of Index\n");
         return 0;
     }
-    printf("ELement readched %d\n",temp->data);
     Node* next = temp->next->next;
     free(temp->next);
     temp->next=next;
     return 1;
+}
+
+int search_node(int key){
+    Node *temp = head;
+    int position=1;
+    while(temp!=NULL){
+        if(temp->data==key)break;
+        position++;
+        temp=temp->next;
+    }
+    if(temp==NULL)
+    {
+        printf("Value %d is not available in list",key);
+        return -1;
+    }
+    printf("Value %d found in the position %d\n", key, position);
+    return position;
 }
 
 void display(){
@@ -122,16 +143,23 @@ void display(){
     printf("\n");
 }
 
+void free_list(){
+    Node*temp=head;
+    while(head!=NULL){
+        temp=head;
+        head=head->next;
+        free(temp);
+    }
+}
 int main(){
     add_element_to_tail(10);
     add_element_to_tail(20);
     add_element_to_tail(30);
     display();
     add_element_to_head(9);
-    add_element_to_head(8);
+    add_element_to_head(80);
+    add_element_at_pos(6,31);
     display();
-    add_element_at_pos(0,2);
-    add_element_at_pos(0,1);
     add_element_at_pos(1,5);
     add_element_at_pos(2,6);
     add_element_at_pos(7,28);
@@ -143,10 +171,16 @@ int main(){
     display();
     printf("Delete at position: \n");
     delete_at_position(8);
+    display();
     delete_at_position(7);
+    display();
     delete_at_position(1);
     display();
     delete_at_position(3);
     display();
+    search_node(9);
+    search_node(8);
+    search_node(28);
+    search_node(45);
 
 }
